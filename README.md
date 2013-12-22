@@ -7,13 +7,15 @@ Usage
 -----
 
 ```html
-$(document).ready(function(){
-	// Target your select
-	$("#your-drop-down").popupush({
-		uri: '/get-results',
-		ulName: 'id-of-the-results-container'
+<script>
+	$(document).ready(function(){
+		// Target your select
+		$("#your-drop-down").popupush({
+			uri: '/get-results',
+			ulName: 'id-of-the-results-container'
+		});
 	});
-});
+</script>
 ```
 
 Example
