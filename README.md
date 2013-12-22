@@ -6,7 +6,7 @@ Hits a database for a list of options and displays them in a drop down select.
 Usage
 -----
 
-```
+```html
 $(document).ready(function(){
 	// Target your select
 	$("#your-drop-down").popupush({
