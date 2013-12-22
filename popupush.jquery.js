@@ -1,35 +1,29 @@
-
 /*!
  * popupush
  *
  * Hits a database for a list of drop down items and displays them nicely. 
- *
- * Usage
  *
  * Original author: @ChrisZieba
  * Further changes, comments: @ChrisZieba
  * Licensed under the MIT license
  */
 
-
 // the semi-colon before the function invocation is a safety 
 // net against concatenated scripts and/or other plugins 
 // that are not closed properly.
 ;(function ( $, window, document, undefined ) {
-	
 	// undefined is used here as the undefined global 
 	// variable in ECMAScript 3 and is mutable (i.e. it can 
 	// be changed by someone else). undefined isn't really 
 	// being passed in so we can ensure that its value is 
 	// truly undefined. In ES5, undefined can no longer be modified
 	
-
 	// Create the defaults once
-	var pluginName = 'pgSearch',
-		defaults = {
-			// this is the class name of the ul list holding all the items in the dropdown
-			ulname: "pgSearch_kyg"
-		};
+	var pluginName = 'pgSearch';
+	var defaults = {
+		// this is the class name of the ul list holding all the items in the dropdown
+		ulname: "pgSearch_kyg"
+	};
 
 	// The actual plugin constructor
 	function Plugin( element, options ) {
@@ -42,17 +36,13 @@
 		// is generally empty because we don't want to alter 
 		// the default options for future instances of the plugin
 		this.options = $.extend( {}, defaults, options) ;
-		
 		this._defaults = defaults;
 		this._name = pluginName;
-		
 		this.init();
 	}
 
-
 	Plugin.prototype = {
 		init: function () {
-			//console.log(this.$elem.val());
 			this.$element.bind('keyup', this, this.listen);
 
 			// this element is not created until we query for titles, so we need to use .on instead of bind
@@ -67,12 +57,8 @@
 
 		// Listen for keystrokes into the text box.
 		listen: function (event) {
-
-			
-
-			var query = $(this).val(),
-				self = event.data;
-
+			var query = $(this).val();
+			var self = event.data;
 
 			// attempt to get the new content
 			$.ajax({
@@ -85,16 +71,12 @@
 					// e.g. ['item 1', 'item2'] once parsed from JSON
 					self.populate(self, data);
 				},
-				complete: function () {
-					
-				},
 				error: function (xhr, text, error) {
 					console.log(text,error);
 					// Nothing to be done if a request to youtube comes back with an error
 				}
 			});
 		},
-
 
 		/**
 		 * Create the drop down in realtion to the text box and fill it with the results from the database
@@ -103,11 +85,8 @@
 		 * @return {Null} 
 		 */
 		populate: function (self, list) {
-
-
 			// if the list is not empty create the list container and show the results
 			if (list.length !== 0) {
-
 				// hold the list of items to be shown in the drop down
 				var items = [];
 
@@ -116,14 +95,12 @@
 					self.$element.data('cache', list);
 				}
 
-
 				items.push('<ul class="' + self.options.ulname + '">');
 				// go through each title and wrap it in a div
 				for (var i = 0; i < list.length; i+=1) {
 					if (list[i].songs) {
 						items.push('<li data-id="'+list[i].id+'">' + list[i].title + '</li>');
 					}
-					
 				}
 				items.push('</ul>')
 
@@ -133,7 +110,6 @@
 				// this will hide the drop down
 				self.hide(self.options.results);
 			}
-			
 		},
 
 		/**
@@ -142,7 +118,6 @@
 		 * @return {Null} 
 		 */
 		select: function (event) {
-
 			// self referes to the plugin object
 			var self = event.data;
 
@@ -172,13 +147,7 @@
 				$('.' + name).hide();
 			}
 		}
-
-
 	};
-
-	
-
-
 
 	// A really lightweight plugin wrapper around the constructor, 
 	// preventing against multiple instantiations
